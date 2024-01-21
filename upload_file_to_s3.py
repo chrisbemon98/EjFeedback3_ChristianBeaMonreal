@@ -19,10 +19,13 @@ aws_session = boto3.Session(profile_name = profile_name, region_name = region_na
 # Creación de un cliente de S3
 s3_client = aws_session.client("s3")
 
-# Subida del fichero file_name al bucket bucket_name
+# Creación del fichero que se subirá al contenedor
 file_name = "file_s3.txt"
+with open(file_name, "w") as file:
+    file.write("Archivo de prueba que se subirá el contenedor de S3 desde la instancia de EC2")
 object_name = os.path.basename(file_name)
 
+# Subida del fichero al contenedor
 response = s3_client.upload_file(file_name, bucket_name, object_name)
 
 # Mensaje de confirmación de subida del archivo al bucket
